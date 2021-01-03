@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework
+${BUILT_PRODUCTS_DIR}/TPCircularBuffer/TPCircularBuffer.framework

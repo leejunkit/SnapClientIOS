@@ -1,0 +1,6 @@
+framework module Pods_SnapClientIOS {
+  umbrella header "Pods-SnapClientIOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

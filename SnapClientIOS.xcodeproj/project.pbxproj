@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		214FFD49843034E2DA38442F /* Pods_SnapClientIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90D82822696E5165D0DA0401 /* Pods_SnapClientIOS.framework */; };
 		47E9039F259A715C00A764A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E9039E259A715C00A764A9 /* AppDelegate.m */; };
 		47E903A2259A715C00A764A9 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903A1259A715C00A764A9 /* SceneDelegate.m */; };
 		47E903A5259A715C00A764A9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903A4259A715C00A764A9 /* ViewController.m */; };
@@ -14,9 +15,15 @@
 		47E903AA259A715F00A764A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E903A9259A715F00A764A9 /* Assets.xcassets */; };
 		47E903AD259A715F00A764A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E903AB259A715F00A764A9 /* LaunchScreen.storyboard */; };
 		47E903B0259A715F00A764A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903AF259A715F00A764A9 /* main.m */; };
+		47E903C3259C8F7C00A764A9 /* FLACiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E903C2259C8F7C00A764A9 /* FLACiOS.framework */; };
+		47E903CD259D768300A764A9 /* ClientSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903CC259D768300A764A9 /* ClientSession.m */; };
+		47E903D1259D76F700A764A9 /* SocketHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903D0259D76F700A764A9 /* SocketHandler.m */; };
+		47E903D5259D83DE00A764A9 /* FlacDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903D4259D83DE00A764A9 /* FlacDecoder.m */; };
+		47E903DE259DAA3E00A764A9 /* StreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903DD259DAA3E00A764A9 /* StreamInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21B2012FF0BC4126667752F0 /* Pods-SnapClientIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapClientIOS.release.xcconfig"; path = "Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS.release.xcconfig"; sourceTree = "<group>"; };
 		47E9039A259A715C00A764A9 /* SnapClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E9039D259A715C00A764A9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		47E9039E259A715C00A764A9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -29,6 +36,19 @@
 		47E903AC259A715F00A764A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47E903AE259A715F00A764A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E903AF259A715F00A764A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		47E903C2259C8F7C00A764A9 /* FLACiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FLACiOS.framework; sourceTree = "<group>"; };
+		47E903CB259D768300A764A9 /* ClientSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClientSession.h; sourceTree = "<group>"; };
+		47E903CC259D768300A764A9 /* ClientSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClientSession.m; sourceTree = "<group>"; };
+		47E903CF259D76F700A764A9 /* SocketHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketHandler.h; sourceTree = "<group>"; };
+		47E903D0259D76F700A764A9 /* SocketHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SocketHandler.m; sourceTree = "<group>"; };
+		47E903D3259D83DE00A764A9 /* FlacDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlacDecoder.h; sourceTree = "<group>"; };
+		47E903D4259D83DE00A764A9 /* FlacDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlacDecoder.m; sourceTree = "<group>"; };
+		47E903DC259DAA3E00A764A9 /* StreamInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamInfo.h; sourceTree = "<group>"; };
+		47E903DD259DAA3E00A764A9 /* StreamInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StreamInfo.m; sourceTree = "<group>"; };
+		47E903E0259DBB8D00A764A9 /* AudioRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioRenderer.h; sourceTree = "<group>"; };
+		47E903E1259DBB8D00A764A9 /* AudioRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRenderer.m; sourceTree = "<group>"; };
+		90D82822696E5165D0DA0401 /* Pods_SnapClientIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapClientIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E14E06205BEB61135913268F /* Pods-SnapClientIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapClientIOS.debug.xcconfig"; path = "Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +56,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E903C3259C8F7C00A764A9 /* FLACiOS.framework in Frameworks */,
+				214FFD49843034E2DA38442F /* Pods_SnapClientIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FF7D705D7989A2764F0D69A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90D82822696E5165D0DA0401 /* Pods_SnapClientIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		47E90391259A715C00A764A9 = {
 			isa = PBXGroup;
 			children = (
+				47E903C2259C8F7C00A764A9 /* FLACiOS.framework */,
 				47E9039C259A715C00A764A9 /* SnapClientIOS */,
 				47E9039B259A715C00A764A9 /* Products */,
+				E7C578F40DFBD9A05130C1E9 /* Pods */,
+				3FF7D705D7989A2764F0D69A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,8 +105,27 @@
 				47E903AB259A715F00A764A9 /* LaunchScreen.storyboard */,
 				47E903AE259A715F00A764A9 /* Info.plist */,
 				47E903AF259A715F00A764A9 /* main.m */,
+				47E903CB259D768300A764A9 /* ClientSession.h */,
+				47E903CC259D768300A764A9 /* ClientSession.m */,
+				47E903CF259D76F700A764A9 /* SocketHandler.h */,
+				47E903D0259D76F700A764A9 /* SocketHandler.m */,
+				47E903D3259D83DE00A764A9 /* FlacDecoder.h */,
+				47E903D4259D83DE00A764A9 /* FlacDecoder.m */,
+				47E903DC259DAA3E00A764A9 /* StreamInfo.h */,
+				47E903DD259DAA3E00A764A9 /* StreamInfo.m */,
+				47E903E0259DBB8D00A764A9 /* AudioRenderer.h */,
+				47E903E1259DBB8D00A764A9 /* AudioRenderer.m */,
 			);
 			path = SnapClientIOS;
+			sourceTree = "<group>";
+		};
+		E7C578F40DFBD9A05130C1E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E14E06205BEB61135913268F /* Pods-SnapClientIOS.debug.xcconfig */,
+				21B2012FF0BC4126667752F0 /* Pods-SnapClientIOS.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47E903B3259A715F00A764A9 /* Build configuration list for PBXNativeTarget "SnapClientIOS" */;
 			buildPhases = (
+				1EF4729BF4ABD2055E0B35A1 /* [CP] Check Pods Manifest.lock */,
 				47E90396259A715C00A764A9 /* Sources */,
 				47E90397259A715C00A764A9 /* Frameworks */,
 				47E90398259A715C00A764A9 /* Resources */,
+				1791454C8A6B68B0E1D2A1E3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,15 +194,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1791454C8A6B68B0E1D2A1E3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnapClientIOS/Pods-SnapClientIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1EF4729BF4ABD2055E0B35A1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SnapClientIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		47E90396259A715C00A764A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				47E903A5259A715C00A764A9 /* ViewController.m in Sources */,
+				47E903D1259D76F700A764A9 /* SocketHandler.m in Sources */,
 				47E9039F259A715C00A764A9 /* AppDelegate.m in Sources */,
 				47E903B0259A715F00A764A9 /* main.m in Sources */,
+				47E903D5259D83DE00A764A9 /* FlacDecoder.m in Sources */,
 				47E903A2259A715C00A764A9 /* SceneDelegate.m in Sources */,
+				47E903CD259D768300A764A9 /* ClientSession.m in Sources */,
+				47E903DE259DAA3E00A764A9 /* StreamInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +325,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -278,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -288,11 +388,16 @@
 		};
 		47E903B4259A715F00A764A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E14E06205BEB61135913268F /* Pods-SnapClientIOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ARHL3C2496;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SnapClientIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -306,11 +411,16 @@
 		};
 		47E903B5259A715F00A764A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21B2012FF0BC4126667752F0 /* Pods-SnapClientIOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ARHL3C2496;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SnapClientIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
