@@ -10,7 +10,7 @@
 #import "FlacDecoder.h"
 #import "AudioRenderer.h"
 
-@interface ClientSession () <SocketHandlerDelegate>
+@interface ClientSession () <SocketHandlerDelegate, FlacDecoderDelegate>
 
 @property (strong, nonatomic) SocketHandler *socketHandler;
 @property (strong, nonatomic) FlacDecoder *flacDecoder;
@@ -35,10 +35,9 @@
 - (void)socketHandler:(SocketHandler *)socketHandler didReceiveCodec:(NSString *)codec header:(NSData *)codecHeader {
     if ([codec isEqualToString:@"flac"]) {
         self.flacDecoder = [[FlacDecoder alloc] init];
+        self.flacDecoder.delegate = self;
         self.flacDecoder.codecHeader = codecHeader;
-        //[self.flacDecoder initAudioQueue];
-        
-        self.audioRenderer = [[AudioRenderer alloc] initWithStreamInfo:[self.flacDecoder getStreamInfo] PCMCircularBuffer:&self.flacDecoder->pcmCircularBuffer];
+        self.audioRenderer = [[AudioRenderer alloc] initWithStreamInfo:[self.flacDecoder getStreamInfo]];
     }
 }
 
@@ -48,5 +47,9 @@
     }
 }
 
+#pragma mark - FlacDecoderDelegate
+- (void)decoder:(FlacDecoder *)decoder didDecodePCMData:(NSData *)pcmData {
+    [self.audioRenderer feedPCMData:pcmData];
+}
 
 @end

@@ -12,9 +12,9 @@
 #define BUFFER_SIZE 19200
 
 @interface AudioRenderer () {
-    TPCircularBuffer pcmCircularBuffer;
     AudioQueueRef audioQueue;
     AudioQueueBufferRef audioQueueBuffers[NUM_BUFFERS];
+    TPCircularBuffer pcmCircularBuffer;
 }
 
 @property (nonatomic, strong) StreamInfo *streamInfo;
@@ -23,10 +23,10 @@
 
 @implementation AudioRenderer
 
-- (instancetype)initWithStreamInfo:(StreamInfo *)info PCMCircularBuffer:(TPCircularBuffer *)cb {
+- (instancetype)initWithStreamInfo:(StreamInfo *)info {
     if (self = [super init]) {
         self.streamInfo = info;
-        pcmCircularBuffer = *cb;
+        TPCircularBufferInit(&pcmCircularBuffer, 65536);
         [self initAudioQueue];
     }
     return self;
@@ -45,7 +45,7 @@
     format.mReserved = 0;
 
     // create the audio queue
-    OSStatus err = AudioQueueNewOutput(&format, audioQueueCallback, (__bridge void *)self, NULL, NULL, 0, &audioQueue);
+    OSStatus err = AudioQueueNewOutput(&format, audioQueueCallback, (__bridge void *)(self), NULL, NULL, 0, &audioQueue);
     if (err != noErr) {
         
     }
@@ -62,6 +62,14 @@
     err = AudioQueueStart(audioQueue, NULL);
     if (err != noErr) {
         NSLog(@"Error occurred starting AudioQueue: %d", err);
+    }
+}
+
+- (void)feedPCMData:(NSData *)pcmData {
+    if (!TPCircularBufferProduceBytes(&pcmCircularBuffer, [pcmData bytes], (uint32_t)pcmData.length)) {
+        NSLog(@"Error inserting PCM frames into the PCM circular buffer!");
+    } else {
+        //NSLog(@"Inserted PCM frames");
     }
 }
 

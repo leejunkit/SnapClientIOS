@@ -30,7 +30,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         decoderQueue = dispatch_queue_create("ljk.SnapClientIOS.decoderqueue", NULL);
-        TPCircularBufferInit(&pcmCircularBuffer, 65536);
         TPCircularBufferInit(&circularBuffer, 8192);
         if ((decoder = FLAC__stream_decoder_new()) == NULL) {
             NSLog(@"Error allocating FLAC decoder!");
@@ -137,13 +136,16 @@ FLAC__StreamDecoderWriteStatus write_cb(const FLAC__StreamDecoder *decoder, cons
         }
     }
     
-    if (!TPCircularBufferProduceBytes(&THIS->pcmCircularBuffer, pcmBuffer, (uint32_t)bytes)) {
-        NSLog(@"Error inserting PCM frames into the PCM circular buffer!");
-    } else {
-        //NSLog(@"Inserted PCM frames");
-    }
-    
+    NSData *pcmData = [NSData dataWithBytes:pcmBuffer length:(NSUInteger)bytes];
     free(pcmBuffer);
+    
+    [THIS.delegate decoder:THIS didDecodePCMData:pcmData];
+    
+//    if (!TPCircularBufferProduceBytes(&THIS->pcmCircularBuffer, pcmBuffer, (uint32_t)bytes)) {
+//        NSLog(@"Error inserting PCM frames into the PCM circular buffer!");
+//    } else {
+//        //NSLog(@"Inserted PCM frames");
+//    }
     
     return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }

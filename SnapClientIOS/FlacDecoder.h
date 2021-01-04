@@ -11,10 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FlacDecoder : NSObject {
-    @public TPCircularBuffer pcmCircularBuffer;
-}
+@class FlacDecoder;
 
+@protocol FlacDecoderDelegate <NSObject>
+
+- (void)decoder:(FlacDecoder *)decoder didDecodePCMData:(NSData *)pcmData;
+
+@end
+
+@interface FlacDecoder : NSObject
+
+@property (nonatomic, weak) id<FlacDecoderDelegate> delegate;
 @property (copy, nonatomic) NSData *codecHeader;
 
 - (BOOL)feedAudioData:(NSData *)audioData;
