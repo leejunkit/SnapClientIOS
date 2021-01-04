@@ -20,6 +20,7 @@
 		47E903D1259D76F700A764A9 /* SocketHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903D0259D76F700A764A9 /* SocketHandler.m */; };
 		47E903D5259D83DE00A764A9 /* FlacDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903D4259D83DE00A764A9 /* FlacDecoder.m */; };
 		47E903DE259DAA3E00A764A9 /* StreamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903DD259DAA3E00A764A9 /* StreamInfo.m */; };
+		47E903E825A1A20E00A764A9 /* AudioRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E903E1259DBB8D00A764A9 /* AudioRenderer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E903E825A1A20E00A764A9 /* AudioRenderer.m in Sources */,
 				47E903A5259A715C00A764A9 /* ViewController.m in Sources */,
 				47E903D1259D76F700A764A9 /* SocketHandler.m in Sources */,
 				47E9039F259A715C00A764A9 /* AppDelegate.m in Sources */,

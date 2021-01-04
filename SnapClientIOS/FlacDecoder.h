@@ -12,11 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FlacDecoder : NSObject {
+    @public TPCircularBuffer pcmCircularBuffer;
 }
 
 @property (copy, nonatomic) NSData *codecHeader;
+
 - (BOOL)feedAudioData:(NSData *)audioData;
-- (void)initAudioQueue;
+- (StreamInfo *)getStreamInfo;
 
 @end
 

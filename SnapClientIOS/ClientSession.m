@@ -8,13 +8,13 @@
 #import "ClientSession.h"
 #import "SocketHandler.h"
 #import "FlacDecoder.h"
-//#import "AudioRenderer.h"
+#import "AudioRenderer.h"
 
 @interface ClientSession () <SocketHandlerDelegate>
 
 @property (strong, nonatomic) SocketHandler *socketHandler;
 @property (strong, nonatomic) FlacDecoder *flacDecoder;
-//@property (strong, nonatomic) AudioRenderer *audioRenderer;
+@property (strong, nonatomic) AudioRenderer *audioRenderer;
 
 @end
 
@@ -36,11 +36,9 @@
     if ([codec isEqualToString:@"flac"]) {
         self.flacDecoder = [[FlacDecoder alloc] init];
         self.flacDecoder.codecHeader = codecHeader;
-        [self.flacDecoder initAudioQueue];
-        /*
-        self.audioRenderer = [[AudioRenderer alloc] initWithStreamInfo:[self.flacDecoder getStreamInfo]
-                                                     PCMCircularBuffer:[self.flacDecoder getPCMCircularBuffer]];
-         */
+        //[self.flacDecoder initAudioQueue];
+        
+        self.audioRenderer = [[AudioRenderer alloc] initWithStreamInfo:[self.flacDecoder getStreamInfo] PCMCircularBuffer:&self.flacDecoder->pcmCircularBuffer];
     }
 }
 

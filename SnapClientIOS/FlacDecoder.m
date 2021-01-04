@@ -15,7 +15,6 @@
 @interface FlacDecoder () {
     dispatch_queue_t decoderQueue;
     TPCircularBuffer circularBuffer;
-    TPCircularBuffer pcmCircularBuffer;
     FLAC__StreamDecoder *decoder;
     StreamInfo *streamInfo;
     AudioQueueRef audioQueue;
@@ -39,10 +38,6 @@
         }
     }
     return self;
-}
-
-- (TPCircularBuffer *)getPCMCircularBuffer {
-    return &pcmCircularBuffer;
 }
 
 - (StreamInfo *)getStreamInfo {
@@ -169,6 +164,7 @@ void error_cb(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus
     NSLog(@"Got error callback, %@", status);
 }
 
+/*
 - (void)initAudioQueue {
     AudioStreamBasicDescription format;
     format.mSampleRate = streamInfo.sampleRate;
@@ -238,4 +234,5 @@ void audioQueueCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRe
         //NSLog(@"Enqueued audioQueue buffer");
     }
 }
+ */
 @end

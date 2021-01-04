@@ -12,7 +12,7 @@
 #define BUFFER_SIZE 19200
 
 @interface AudioRenderer () {
-    TPCircularBuffer circularBuffer;
+    TPCircularBuffer pcmCircularBuffer;
     AudioQueueRef audioQueue;
     AudioQueueBufferRef audioQueueBuffers[NUM_BUFFERS];
 }
@@ -26,7 +26,7 @@
 - (instancetype)initWithStreamInfo:(StreamInfo *)info PCMCircularBuffer:(TPCircularBuffer *)cb {
     if (self = [super init]) {
         self.streamInfo = info;
-        circularBuffer = *cb;
+        pcmCircularBuffer = *cb;
         [self initAudioQueue];
     }
     return self;
@@ -67,25 +67,25 @@
 
 void audioQueueCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
     AudioRenderer *THIS = (__bridge AudioRenderer *)inUserData;
-    TPCircularBuffer pcmBuffer = THIS->circularBuffer;
     
     uint32_t audioQueueBufferRequestedSize = inBuffer->mAudioDataByteSize;
     SInt16 *targetBuffer = inBuffer->mAudioData;
     
     // pull audio from circular buffer
     uint32_t availableBytesFromCircularBuffer;
-    SInt16 *buffer = TPCircularBufferTail(&pcmBuffer, &availableBytesFromCircularBuffer);
+    SInt16 *buffer = TPCircularBufferTail(&THIS->pcmCircularBuffer, &availableBytesFromCircularBuffer);
     
     if (availableBytesFromCircularBuffer > 0) {
         if (availableBytesFromCircularBuffer > audioQueueBufferRequestedSize) {
             memcpy(targetBuffer, buffer, audioQueueBufferRequestedSize);
-            TPCircularBufferConsume(&pcmBuffer, audioQueueBufferRequestedSize);
+            TPCircularBufferConsume(&THIS->pcmCircularBuffer, audioQueueBufferRequestedSize);
         } else {
-            // audioQueueBuffer is requesting more data than what we have in the circular buffer
-            // give everything we have, then top up with silent audio (0s)
+            // audioQueueBuffer is requesting more data than what we have
+            // in the circular buffer - give it everything we've got then
+            // top up with silence (0s) at the end
+            memset(targetBuffer, 0, audioQueueBufferRequestedSize);
             memcpy(targetBuffer, buffer, availableBytesFromCircularBuffer);
-            TPCircularBufferConsume(&pcmBuffer, availableBytesFromCircularBuffer);
-            memset(targetBuffer + availableBytesFromCircularBuffer, 0, audioQueueBufferRequestedSize - availableBytesFromCircularBuffer);
+            TPCircularBufferConsume(&THIS->pcmCircularBuffer, availableBytesFromCircularBuffer);
         }
     } else {
         // we have nothing to offer the audioQueueBuffer
