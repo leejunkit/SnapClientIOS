@@ -71,27 +71,32 @@
     }
     
     if (!self.isDecoding) {
-        self.isDecoding = YES;
-        dispatch_async(decoderQueue, ^{
-            [self decode];
-        });
-        self.isDecoding = NO;
+        [self decode];
     }
     
     return YES;
 }
 
 - (void)decode {
-    uint32_t availableBytesFromCircularBuffer;
-    TPCircularBufferTail(&circularBuffer, &availableBytesFromCircularBuffer);
+    if (self.isDecoding) return;
+    
+    dispatch_async(decoderQueue, ^{
+        self.isDecoding = YES;
+        
+        uint32_t availableBytesFromCircularBuffer;
+        TPCircularBufferTail(&self->circularBuffer, &availableBytesFromCircularBuffer);
 
-    while (availableBytesFromCircularBuffer > 0) {
-        if (!FLAC__stream_decoder_process_single(decoder)) {
-            NSLog(@"Error occurred during decoding!");
-            return;
+        while (availableBytesFromCircularBuffer > 0) {
+            if (!FLAC__stream_decoder_process_single(self->decoder)) {
+                NSLog(@"Error occurred during decoding!");
+                self.isDecoding = NO;
+                return;
+            }
+            TPCircularBufferTail(&self->circularBuffer, &availableBytesFromCircularBuffer);
         }
-        TPCircularBufferTail(&circularBuffer, &availableBytesFromCircularBuffer);
-    }
+        
+        self.isDecoding = NO;
+    });
 }
 
 FLAC__StreamDecoderReadStatus read_cb(const FLAC__StreamDecoder *decoder, FLAC__byte buffer[], size_t *bytes, void *client_data) {
@@ -140,13 +145,6 @@ FLAC__StreamDecoderWriteStatus write_cb(const FLAC__StreamDecoder *decoder, cons
     free(pcmBuffer);
     
     [THIS.delegate decoder:THIS didDecodePCMData:pcmData];
-    
-//    if (!TPCircularBufferProduceBytes(&THIS->pcmCircularBuffer, pcmBuffer, (uint32_t)bytes)) {
-//        NSLog(@"Error inserting PCM frames into the PCM circular buffer!");
-//    } else {
-//        //NSLog(@"Inserted PCM frames");
-//    }
-    
     return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 }
 
@@ -166,75 +164,4 @@ void error_cb(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus
     NSLog(@"Got error callback, %@", status);
 }
 
-/*
-- (void)initAudioQueue {
-    AudioStreamBasicDescription format;
-    format.mSampleRate = streamInfo.sampleRate;
-    format.mFormatID = kAudioFormatLinearPCM;
-    format.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger;
-    format.mBitsPerChannel = streamInfo.bitsPerSample;
-    format.mChannelsPerFrame = streamInfo.channels;
-    format.mBytesPerFrame = streamInfo.frameSize;
-    format.mFramesPerPacket = 1;
-    format.mBytesPerPacket = format.mBytesPerFrame * format.mFramesPerPacket;
-    format.mReserved = 0;
-
-    // create the audio queue
-    OSStatus err = AudioQueueNewOutput(&format, audioQueueCallback, (__bridge void *)self, NULL, NULL, 0, &audioQueue);
-    if (err != noErr) {
-        
-    }
-    
-    // allocate some audio queue buffers
-    for (int i = 0; i < NUM_BUFFERS; i++) {
-        AudioQueueAllocateBuffer(audioQueue, BUFFER_SIZE, &audioQueueBuffers[i]);
-        audioQueueBuffers[i]->mAudioDataByteSize = BUFFER_SIZE;
-        audioQueueCallback((__bridge void *)(self), audioQueue, audioQueueBuffers[i]);
-    }
-    
-    //AudioQueuePrime(audioQueue, 0, NULL);
-    
-    err = AudioQueueStart(audioQueue, NULL);
-    if (err != noErr) {
-        NSLog(@"Error occurred starting AudioQueue: %d", err);
-    }
-}
-
-void audioQueueCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
-    FlacDecoder *THIS = (__bridge FlacDecoder *)inUserData;
-    
-    uint32_t audioQueueBufferRequestedSize = inBuffer->mAudioDataByteSize;
-    SInt16 *targetBuffer = inBuffer->mAudioData;
-    
-    // pull audio from circular buffer
-    uint32_t availableBytesFromCircularBuffer;
-    SInt16 *buffer = TPCircularBufferTail(&THIS->pcmCircularBuffer, &availableBytesFromCircularBuffer);
-    
-    if (availableBytesFromCircularBuffer > 0) {
-        if (availableBytesFromCircularBuffer > audioQueueBufferRequestedSize) {
-            memcpy(targetBuffer, buffer, audioQueueBufferRequestedSize);
-            TPCircularBufferConsume(&THIS->pcmCircularBuffer, audioQueueBufferRequestedSize);
-        } else {
-            // audioQueueBuffer is requesting more data than what we have
-            // in the circular buffer - give it everything we've got then
-            // top up with silence (0s) at the end
-            memset(targetBuffer, 0, audioQueueBufferRequestedSize);
-            memcpy(targetBuffer, buffer, availableBytesFromCircularBuffer);
-            TPCircularBufferConsume(&THIS->pcmCircularBuffer, availableBytesFromCircularBuffer);
-        }
-    } else {
-        // we have nothing to offer the audioQueueBuffer
-        // fill the buffer with 0s
-        //memcpy(targetBuffer, (void *)memcpy, audioQueueBufferRequestedSize);
-        memset(targetBuffer, 0, audioQueueBufferRequestedSize);
-    }
-    
-    OSStatus error = AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, NULL);
-    if (error != noErr) {
-        NSLog(@"Error enqueuing buffer: %d", error);
-    } else {
-        //NSLog(@"Enqueued audioQueue buffer");
-    }
-}
- */
 @end
