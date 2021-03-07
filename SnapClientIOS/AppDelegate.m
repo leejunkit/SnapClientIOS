@@ -19,6 +19,24 @@
     return YES;
 }
 
+#pragma mark - Core Data
+- (PersistentContainer *)persistentContainer {
+    if (!_persistentContainer) {
+        _persistentContainer = [PersistentContainer persistentContainerWithName:@"SnapClientIOS"];
+        
+        __weak typeof(_persistentContainer) weakContainer = _persistentContainer;
+        [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Error loading persistent stores, unable to continue: %@", error);
+                @throw NSInternalInconsistencyException;
+            }
+            
+            weakContainer.viewContext.automaticallyMergesChangesFromParent = YES;
+        }];
+    }
+    
+    return _persistentContainer;
+}
 
 #pragma mark - UISceneSession lifecycle
 
